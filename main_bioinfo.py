@@ -11,7 +11,7 @@ from PyQt5 import QtWidgets as qtw
 import sys
 from import_data import Text
 from bio_proto_gui import Ui_MainWindow
-
+from Features import Feature
 
 class MainWindow(qtw.QMainWindow):
     def __init__(self):
@@ -19,15 +19,17 @@ class MainWindow(qtw.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.show()
+        self.feat=Feature()
         self.ui.actionText_File.triggered.connect(self.get_data)
-
+        self.ui.actionFrequency.triggered.connect(self.freq_view)
     def get_data(self):
         func=Text()
-        data = func.data()
-        self.ui.label.setText(data)
-        self.ui.label.setText("hello")
-
-
+        self.data = func.data()
+        self.ui.label.setText(self.data)
+    def freq_view(self):
+        freqs=self.feat.nucleotide_frequency(self.data)
+        print(type(str(freqs)))
+        self.ui.label.setText(str(freqs))
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     app.setStyle("Fusion")
