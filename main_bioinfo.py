@@ -22,14 +22,18 @@ class MainWindow(qtw.QMainWindow):
         self.feat=Feature()
         self.ui.actionText_File.triggered.connect(self.get_data)
         self.ui.actionFrequency.triggered.connect(self.freq_view)
+        self.ui.actionTranscription.triggered.connect(self.transcript_view)
+
     def get_data(self):
         func=Text()
-        self.data = func.data()
+        self.data = str(func.data())
         self.ui.label.setText(self.data)
     def freq_view(self):
         freqs=self.feat.nucleotide_frequency(self.data)
-        print(type(str(freqs)))
         self.ui.label.setText(str(freqs))
+    def transcript_view(self):
+        trans = self.feat.transcription(self.data)
+        self.ui.label.setText(str(trans))
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     app.setStyle("Fusion")

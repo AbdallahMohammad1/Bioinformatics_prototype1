@@ -5,3 +5,6 @@ class Feature():
         freqs=dict(Counter(seq))
         freqs.popitem()
         return freqs
+    def transcription(self,seq):
+        """DNA -> RNA Transcription. Replacing Thymine with Uracil"""
+        return seq.replace("T", "U")
