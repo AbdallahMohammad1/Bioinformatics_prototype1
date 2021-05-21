@@ -9,14 +9,25 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import QtWidgets as qtw
 import sys
-
+from import_data import Text
 from bio_proto_gui import Ui_MainWindow
+
+
 class MainWindow(qtw.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.show()
+        self.ui.actionText_File.triggered.connect(self.get_data)
+
+    def get_data(self):
+        func=Text()
+        data = func.data()
+        self.ui.label.setText(data)
+        self.ui.label.setText("hello")
+
+
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     app.setStyle("Fusion")
