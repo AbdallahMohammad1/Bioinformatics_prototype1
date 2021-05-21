@@ -20,9 +20,11 @@ class MainWindow(qtw.QMainWindow):
         self.ui.setupUi(self)
         self.show()
         self.feat=Feature()
+        self.type="DNA"
         self.ui.actionText_File.triggered.connect(self.get_data)
         self.ui.actionFrequency.triggered.connect(self.freq_view)
         self.ui.actionTranscription.triggered.connect(self.transcript_view)
+        self.ui.actionReverse.triggered.connect(self.inv)
 
     def get_data(self):
         func=Text()
@@ -33,7 +35,11 @@ class MainWindow(qtw.QMainWindow):
         self.ui.label.setText(str(freqs))
     def transcript_view(self):
         trans = self.feat.transcription(self.data)
+        self.type="RNA"
         self.ui.label.setText(str(trans))
+    def inv(self):
+        inv = self.feat.reverse_complement(self.data,self.type)
+        self.ui.label.setText(str(inv))
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     app.setStyle("Fusion")

@@ -8,3 +8,13 @@ class Feature():
     def transcription(self,seq):
         """DNA -> RNA Transcription. Replacing Thymine with Uracil"""
         return seq.replace("T", "U")
+    def reverse_complement(self,seq,seq_type):
+        """
+        Swapping adenine with thymine and guanine with cytosine.
+        Reversing newly generated string
+        """
+        if seq_type == "DNA":
+            mapping = str.maketrans('ATCG', 'TAGC')
+        else:
+            mapping = str.maketrans('AUCG', 'UAGC')
+        return seq.translate(mapping)[::-1]
