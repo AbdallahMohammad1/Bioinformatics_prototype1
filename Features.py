@@ -28,4 +28,23 @@ class Feature():
             return [DNA_Codons[seq[pos:pos + 3]] for pos in range(init_pos, len(seq) - 2, 3)]
         elif seq_type == "RNA":
             return [RNA_Codons[seq[pos:pos + 3]] for pos in range(init_pos, len(seq) - 2, 3)]
-    
+    def codon_usage(self,seq,seq_type, aminoacid):
+        """Provides the frequency of each codon encoding a given aminoacid in a DNA sequence"""
+        list_amino = []
+        if seq_type == "DNA":
+
+            for i in range(0, len(seq) - 4, 3):
+                if DNA_Codons[seq[i:i + 3]] == aminoacid:
+                    print(seq[i:i + 3])
+                    list_amino.append(seq[i:i + 3])
+        elif seq_type == "RNA":
+            for i in range(0, len(seq) - 4, 3):
+                if RNA_Codons[seq[i:i + 3]] == aminoacid:
+                    list_amino.append(seq[i:i + 3])
+
+        freqDict = dict(Counter(list_amino))
+        totalWight = sum(freqDict.values())
+        for i in freqDict:
+            freqDict[i] = round(freqDict[i] / totalWight, 2)
+        return freqDict
+        #return list_amino

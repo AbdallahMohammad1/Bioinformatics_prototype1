@@ -28,6 +28,7 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionReverse.triggered.connect(self.inv)
         self.ui.actionGC_Content.triggered.connect(self.GC)
         self.ui.actionTranslate_Seq.triggered.connect(self.translate)
+        self.ui.actionCodon_Usage.triggered.connect(self.codon)
 
     def get_data(self):
         func=Text()
@@ -47,9 +48,12 @@ class MainWindow(qtw.QMainWindow):
         cg = self.feat.gc_content(self.data)
         self.ui.label.setText(str(cg))
     def translate(self):
-        cg = self.feat.translate_seq(self.data,self.type,self.pos)
+        translate = self.feat.translate_seq(self.data,self.type,self.pos)
         self.pos=self.pos+3
-        self.ui.label.setText(str(cg))
+        self.ui.label.setText(str(translate))
+    def codon(self):
+        c = self.feat.codon_usage(self.data,self.type,'Y')
+        self.ui.label.setText(str(c))
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     app.setStyle("Fusion")
