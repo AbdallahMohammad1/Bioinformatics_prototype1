@@ -21,15 +21,17 @@ class MainWindow(qtw.QMainWindow):
         self.show()
         self.feat=Feature()
         self.type="DNA"
+        self.pos=0
         self.ui.actionText_File.triggered.connect(self.get_data)
         self.ui.actionFrequency.triggered.connect(self.freq_view)
         self.ui.actionTranscription.triggered.connect(self.transcript_view)
         self.ui.actionReverse.triggered.connect(self.inv)
         self.ui.actionGC_Content.triggered.connect(self.GC)
+        self.ui.actionTranslate_Seq.triggered.connect(self.translate)
 
     def get_data(self):
         func=Text()
-        self.data = str(func.data())
+        self.data = func.data()
         self.ui.label.setText(self.data)
     def freq_view(self):
         freqs=self.feat.nucleotide_frequency(self.data)
@@ -43,6 +45,10 @@ class MainWindow(qtw.QMainWindow):
         self.ui.label.setText(str(inv))
     def GC(self):
         cg = self.feat.gc_content(self.data)
+        self.ui.label.setText(str(cg))
+    def translate(self):
+        cg = self.feat.translate_seq(self.data,self.type,self.pos)
+        self.pos=self.pos+3
         self.ui.label.setText(str(cg))
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
