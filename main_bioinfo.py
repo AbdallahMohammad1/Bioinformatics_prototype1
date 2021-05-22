@@ -25,6 +25,7 @@ class MainWindow(qtw.QMainWindow):
         self.ui.actionFrequency.triggered.connect(self.freq_view)
         self.ui.actionTranscription.triggered.connect(self.transcript_view)
         self.ui.actionReverse.triggered.connect(self.inv)
+        self.ui.actionGC_Content.triggered.connect(self.GC)
 
     def get_data(self):
         func=Text()
@@ -40,6 +41,9 @@ class MainWindow(qtw.QMainWindow):
     def inv(self):
         inv = self.feat.reverse_complement(self.data,self.type)
         self.ui.label.setText(str(inv))
+    def GC(self):
+        cg = self.feat.gc_content(self.data)
+        self.ui.label.setText(str(cg))
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     app.setStyle("Fusion")

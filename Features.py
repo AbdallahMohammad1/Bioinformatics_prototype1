@@ -18,3 +18,6 @@ class Feature():
         else:
             mapping = str.maketrans('AUCG', 'UAGC')
         return seq.translate(mapping)[::-1]
+    def gc_content(self,seq):
+        """GC Content in a DNA/RNA sequence"""
+        return round((seq.count('C') + seq.count('G')) / len(seq) * 100)
